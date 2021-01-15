@@ -1,0 +1,658 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Sass筆記</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="29f8eba6-d66c-466f-bd0b-d2c3c4c70656" class="page mono"><header><h1 class="page-title">Sass筆記</h1></header><div class="page-body"><p id="6651188e-da79-4762-8b72-d1881b1354b6" class=""><strong>Sass</strong></p><p id="f322ac3f-b190-4cf7-8320-180a459b6eb9" class="block-color-blue"><a href="https://blog.techbridge.cc/2017/06/30/sass-scss-tutorial-introduction/"><strong>Sass/SCSS 簡介</strong></a></p><h2 id="c9653c05-5397-4abe-995f-d35721d790dc" class="block-color-red"><strong>何謂 Sass？</strong></h2><p id="e6bdce9c-0570-4963-9460-e0f93052fc1b" class="">易於管理.css檔案</p><h2 id="6485f63d-b34c-44c1-a243-3fe00023e22e" class="block-color-red"><strong>Sass 與 CSS 的不同之處</strong></h2><p id="d50cfedc-bcf6-4fd2-9361-573af0c142d7" class="">在.scss或是.sass檔案中撰寫SCSS或是Sass透過編譯器轉換成.css檔案。可根據不同的功能去寫不同的.scss或是.sass檔案,最後合併成一個檔案。若是下個專案有用到特定功能時,可以單獨抽出檔案並用到下個專案</p><h2 id="a2a10952-010a-46c0-a5a6-0d5479b8e56c" class="block-color-red"><strong>SCSS 與 Sass 格式差異</strong></h2><p id="e1131018-871e-49c8-a7cd-b37bf737dc10" class="">SCSS寫法</p><p id="7c6ee19d-185d-471e-93d4-ab122b171134" class="">利用SCSS的巢狀寫法可以省下重覆的Class或是id名稱;以及用{}跟;來區分段落。SCSS的寫法比較貼近CSS,比較多人使用SCSS寫法。</p><p id="bcfaefce-0b2e-4576-8325-987d77d32b78" class="">SASS</p><p id="3fdd0995-e4be-4003-ab6f-79a33b00b214" class="">則是以tab或是2個空白來做縮排及斷行來區分,沒有分號及括號</p><div id="42c6831c-8ea3-4268-ae47-d562ca941e12" class="column-list"><div id="c8882edc-abfe-40bc-9ec7-ab42b70a2e36" style="width:50%" class="column"><figure id="a16a42fc-a460-4588-a5b1-a33302684458" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image1.png"><img style="width:480px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image1.png"/></a></figure><p id="a839b90d-0a5b-4533-82a2-e68ad784a00d" class="">
+</p><figure id="38bf8a47-8af9-4ecf-a399-7de4e92b99f5" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image2.png"><img style="width:480px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image2.png"/></a></figure><p id="85a1ab2e-985d-40d0-bf67-c74591a86823" class="">
+</p><h2 id="18ab3985-bc6c-4d73-889e-1f1763583935" class="block-color-red"><strong>Sass 格式教學</strong></h2></div><div id="6d3c8f1e-b9be-4ddf-885a-cee0c43cb6d4" style="width:50%" class="column"><p id="39515a09-8679-44ac-836a-8be4fc8c27cc" class="">
+</p><p id="311aed62-d56d-4729-ab74-68b97dca31c0" class="">
+</p><p id="63464632-bda0-485d-a2d5-3d490ddc2ded" class="">
+</p><p id="bf8d7c00-374a-44dc-ace9-4ae77104def2" class="">
+</p><p id="9a963fa0-020a-41f8-a226-dcf4761943f5" class="">
+</p><p id="5ce44819-5e44-4315-bd81-84b9aa92986e" class="">
+</p><p id="f17eb3b1-3809-41e5-bd3c-721949e46935" class="">
+</p><p id="7cf21937-9407-4d11-b7a1-2fc9dd80def5" class="">
+</p><p id="53375a18-84ad-4ffc-95a4-e39c111b7217" class="">
+</p><p id="5d2aa493-841c-4189-8de0-6fb252c24906" class="">
+</p><p id="61ce37a1-d273-4b37-a1dc-fa8a5d8b20d4" class="">
+</p><p id="a925df02-3e2c-4a84-96a5-c11fe1bc257f" class="">
+</p><p id="19bd5fb0-7834-4acb-908d-b3096f11b43f" class="">
+</p><p id="da2f8934-987d-4d60-855f-a41539f81e10" class="">
+</p><p id="7c4c302c-46f2-46a7-a7d6-4221a94db5cb" class="">
+</p></div></div><p id="b08d02a0-b89d-4894-abf9-be1191626109" class="">則是以tab或是2個空白來做縮排及斷行來區分,沒有分號及括號。</p><p id="0be97099-f327-4b9c-b95c-1495925e8300" class="">選擇器</p><p id="90cb6cb1-53aa-4deb-a96d-cd6b9bd8a975" class="">css屬性: 值(值前面一定要有空白跟值後面不能有分號,不然會出錯;)</p><div id="0e4cbf06-e617-473c-88f8-aac505aff781" class="column-list"><div id="a6825d99-5086-4663-8cc1-c2960ce74705" style="width:56.25%" class="column"><figure id="c2bc9944-781f-4193-878c-35481408dc1f" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image3.png"><img style="width:336px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image3.png"/></a></figure></div><div id="03dfe02a-c769-4dd5-9684-76bdb4cb4d99" style="width:43.74999999999999%" class="column"><p id="4b988205-5658-4bbc-9734-4711de3f724f" class="">
+</p></div></div><h2 id="c331abbb-dd26-41f3-93be-d7dade0b9bb3" class=""><mark class="highlight-red"><strong>Sass 編譯方式</strong></mark></h2><ol id="6e533498-136b-443c-9196-fca9a2c698c6" class="numbered-list" start="1"><li>使用軟體編譯 ex: prepros</li></ol><ol id="c8ddbbcb-c09d-49e2-a072-116d8454f9df" class="numbered-list" start="2"><li>gulp或是webpack打包工具,是希望同時將SCSS或是JavaScript同時編譯所使用的工具</li></ol><ol id="647bad95-a068-4628-a5de-1275dd963da7" class="numbered-list" start="3"><li>網頁編輯器內建的插件 ex: VS code內建的Live Sass Compiler;若是使用sublime text或是其他網頁編輯器建議使用prepros去編譯。</li></ol><h2 id="4c94381a-16db-4730-bc09-6d3160289721" class="block-color-red"><strong>prepros 教學</strong></h2><p id="e82dd301-b1a5-4c10-b43d-c3190f988db6" class="">建立專案資料夾-&gt;建立SCSS資料夾-&gt;建立all.scss</p><p id="da113523-cca7-4bae-8d4a-69426793f8c1" class="">把專案資料夾拉到prepros或是在prepros按左下角的+去加入檔案(請記得是要加入根目錄的資料夾而不是SCSS資料夾)。</p><p id="00a7e255-a973-45e1-bd7b-beda681d606a" class="">在all.scss寫入SCSS語法並儲存後,會自動新增CSS資料夾及all.css。它會自動追蹤.scss檔案是否有更新。</p><h2 id="9132914f-46aa-44ff-95c3-a3730e4a93db" class="block-color-red"><strong>VS CODE 編譯 Sass 教學</strong></h2><p id="a9ccaa68-cd00-436c-8d5d-25bc715dd802" class="">建立專案資料夾-&gt;建立SCSS資料夾-&gt;建立all.scss</p><p id="7f4ac8d8-9228-448d-aebb-1bed40a233da" class="">在VS code中 輸入Live Sass Compiler。下載安裝後,在all.scss寫入SCSS語</p><p id="441aeae4-3902-42f3-b60b-6b56d457d89d" class="">法,按下下方Watch Sass即可編譯並產生all.css及all.css.map</p><figure id="5412aced-4ea2-41e0-9dd4-f1997e7c2994" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image4.png"><img style="width:48px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image4.png"/></a></figure><h2 id="cb513653-d478-417e-8131-c6fba6d844bc" class="block-color-red"><strong>&amp; 連結詞教學</strong></h2><p id="2b071700-173b-4625-b0dc-0e140fb7e804" class="block-color-blue"><a href="https://frankknow.com/sass-tutorial/"><strong>SASS教學 ＋SCSS：CSS 再進化，掌握語法攻略！</strong></a></p><p id="02916b79-129d-4d93-bf5e-4017b0f66841" class="">引用父選擇器 &amp;</p><div id="851b82a8-2ea4-4992-b97c-f48e7b3e3559" class="column-list"><div id="d7136e56-9f62-4c52-8046-3af2feb17bb6" style="width:50%" class="column"><figure id="5f92ef90-d02c-40a1-8983-143fde8a41ff" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image5.png"><img style="width:384px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image5.png"/></a></figure></div><div id="12731b9e-cad5-4a37-b53f-7a313b3f2883" style="width:50%" class="column"><p id="dbdb9934-092d-4fd1-9e16-d6266bf500e3" class="">
+</p></div></div><h2 id="72111f59-50de-4c19-b39e-dd6793588708" class="block-color-red"><strong>為什麼要學變數？</strong></h2><p id="e0baab37-b29b-4fb8-81dd-af9d9777ccf5" class="">可將常需要用到的CSS屬性值放在變數來管理,常會輸入到5~10次的樣式就可以使用變數。</p><p id="63a024d5-42fc-45a3-8dae-d4563730e402" class=""><strong>變數教學</strong></p><ul id="28aadec2-2c08-45d2-b10b-f3a8f8acfbb7" class="bulleted-list"><li>可將常需要設定的CSS放在變數來管理</li></ul><ul id="448c5d25-0c7d-4273-af45-3eef26f528e7" class="bulleted-list"><li>變數是用美元符號開頭$</li></ul><p id="2a3b4ef4-b4e0-4cd4-a66d-57da719e9c05" class="block-color-yellow">$變數名稱: 值;</p><p id="4c58757d-274a-4c8a-8685-c5b1adcef0d0" class="">ex:</p><p id="c94de2d5-cbac-45c9-89d3-56b4dbd95f40" class="">$text-color: #8f3333;</p><p id="9da7ac79-ccdd-4efd-81ad-f5f09bf3961f" class="">$font-m: 16px;</p><h2 id="345565e4-f448-4aae-a5e1-26903b233714" class="block-color-red"><strong>常見變數編譯錯誤</strong></h2><ol id="325d7fdc-44b3-417a-8879-572e4b4335e0" class="numbered-list" start="1"><li>忘記加分號 $變數名稱: 值<strong>;</strong></li></ol><ol id="86503864-3024-49e6-8f5f-3c16f1be37c7" class="numbered-list" start="2"><li>變數沒有放在最前面 在編譯過程中,是從上到下來執行,所以變數要寫在最前面,不然在編譯過程中會因為找不到變數而會出錯。</li></ol><h2 id="ec9fae1e-e157-40ad-94a7-300310396816" class="block-color-red"><strong>變數搭配加減乘除好方便</strong></h2><ul id="12438453-a3fb-4dbe-b1e0-7a435fb5afca" class="bulleted-list"><li>SCSS有支援加減乘除,所以可在變數使用</li></ul><p id="28898df6-1e03-47fa-bbc4-759722ab481e" class="block-color-yellow">$變數名稱: 值;</p><p id="7c1189c7-5655-4d50-aac5-3b6e07c6d6bc" class="">ex:</p><p id="3dfe36ed-a661-40b3-befc-495e2802f9d2" class="">$font-l: $font-m * 1.2;</p><p id="eecbe537-ce10-4cfa-83b4-71cd2c85c0ad" class="">$font-m: 16px;</p><p id="d8c25680-1770-4215-a0c9-85f62e61c7f0" class="">$font-s: $font-m * 0.8;</p><figure id="1b0e1f26-a434-4225-8607-e3328d8a9638" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image6.png"><img style="width:678px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image6.png"/></a></figure><p id="648b4996-9a75-437b-bb5b-974b8fa8c1d1" class="block-color-teal"><strong>補充:</strong> 顏色的變數在命名上我們會盡可能避免使用顏色來命名，其主要原因是因為當顏色若修改就會變得很奇怪，例如 $red 後來色碼改成黑色，那麼就會顯得相當奇怪。變數在命名上可以試著參考較知名的框架命名,像是Bootstrap。</p><p id="10f1ad94-333a-4163-8be3-60b2478c9709" class=""><strong>字串管理</strong></p><p id="5d449c12-7132-43ec-8484-082ac076d840" class="">$font-family-base: &#x27;Arial, Helvetica, sans-serif&#x27;;</p><p id="f6bc6c49-ecfa-45bd-abcc-e4bbe2db77a6" class="">$font-family-title: &#x27;monospace&#x27;;</p><pre id="c5e16427-42ee-470c-8ac7-7dfe4d7e4737" class="code"><code>.link a{
+
+color :$text-color;
+
+font-size: $font-m;
+
+font-family: $font-family-title;
+
+}</code></pre><p id="7632ed2c-adbd-46c5-bc87-e16493cc9dab" class="">.link a{</p><p id="44dc6581-2fd6-4b34-b8c0-3faa52b6f1b0" class="">color :$text-color;</p><p id="f463a5ce-f9e0-43ce-a767-83b7dd08c05e" class="">font-size: $font-m;</p><p id="ac230e73-05a7-48f0-8c5f-873705866b26" class="">font-family: $font-family-title;</p><p id="150bf298-7993-4444-88b5-38456be07423" class="">}</p><p id="3718d57e-19a9-4e4b-a8d7-07a0b8c39d16" class=""><strong>調出想要的顏色</strong></p><p id="b36d7560-3d7f-42d2-8487-a3d87b505661" class=""><a href="https://wcc723.github.io/sass/2013/08/26/sass-hsl-funtion/">Sass HSL function</a></p><p id="8a390b69-f46b-4f09-a0f6-1620becc930d" class=""><a href="https://codepen.io/staceyhuang/pen/poEZoyv">Sass 調出想要的顏色(使用darken、lighten)</a></p><p id="dd652e9b-0573-4c2a-bae0-0d5dd01abecc" class="">.box2{</p><p id="d37eeb9f-0303-48c6-8ddd-a3d4e9faba80" class="">background:lighten($bg-color,40%)</p><p id="2182d7c9-fbb3-46d8-ab58-b9112f47680f" class="">}</p><pre id="5d1dca2f-c7c8-413e-9004-eee80387bc90" class="code"><code>.box2{
+
+background:lighten($bg-color,40%)
+
+}</code></pre><p id="e006b44d-d72d-42dc-ace2-fd375b91d0cb" class="">.box3{</p><p id="b820e6fb-4ccd-41ed-a1c5-00c0220b4a13" class="">background:darken($bg-color, 30%)</p><p id="ae4296a4-0db6-4afb-8f10-ecee6cc83dfe" class="">}</p><p id="6697f621-c59c-4fec-be29-2d11d8d6ed6c" class=""><strong>從基礎到進階的變數管理技巧</strong></p><p id="43b4480b-bbf7-4413-8283-052502df7065" class="">變數命名要有語意化,這樣才可以清楚知道變數的用意。可以先針對顏色、文字大小、文字字型、網站寬度、格線系統 columns 寬度跟圖片資料夾路徑等去設定變數。</p><p id="92bbca3b-ebc6-4013-971e-7e581ca4e754" class=""><strong>import</strong></p><p id="6338b4e5-899f-4acb-82a6-5e92c45038bb" class="">使用@import可將多個.scss檔案彙整成一個.css檔案</p><p id="30b02156-6c21-4e29-aade-194cb0a61efe" class="">_檔案名稱.scss _下底線表示檔案是要拿來被合併的,就不會編譯出css</p><p id="f781ac15-1d8d-4f1d-ac57-f37845cf86d4" class=""><strong>import + 變數雙向管理</strong></p><p id="265db337-f212-47a1-a064-0b83c37b60a0" class="">ex:將變數拆成_variable.scss檔,並在all.scss用@import &quot;_variable.scss&quot;;引入檔案。</p><p id="7f220e4d-3034-4eba-b522-03ccfd8dba99" class=""><strong>主要 CSS 拆開管理</strong></p><p id="a237d045-85b3-4b36-b36f-67a54719bf0f" class="">ex: 將主要的CSS樣式拆成_main.scss檔案, 並在all.scss用@import &quot;_main.scss &quot;;引入檔案。</p><p id="e08b99a5-fd3e-4de0-bf34-b9feeaf2cb33" class=""><strong>常見問題解析</strong></p><ol id="2037a280-603f-43f1-bdf3-d01b09124f78" class="numbered-list" start="1"><li>引入.scss檔案時忘記加分號</li></ol><ol id="ee50c3e3-a9ae-4e77-bfad-40994c5dc472" class="numbered-list" start="2"><li>引入.scss檔案順序不對 ex:先引入_main.scss檔案再引入_variable.scss檔,編譯過程是從上而下開始,所以會找不到變數而出錯</li></ol><p id="efc327c3-dc35-4c2c-8838-8fd95bb897d2" class=""><strong>CSS Reset - 你知道 meyerweb 與 Normalize 的差異嗎？</strong></p><p id="25237716-2348-483f-b264-bc51cb86cf38" class="">meyerweb: 把瀏覽器預設的樣式都清空,工程師建議使用。</p><p id="92b443ef-2292-44f4-80bf-ea9fbfa16de8" class="">Normalize: 保有某部分的瀏覽器預設的樣式, 保留原本預設 HTML 標籤的樣式，僅針對不同瀏覽器與各版本間不相容的標籤進行些微調整。設計師建議使用。</p><p id="4755ad1f-a21f-42a3-a2d9-4458c98af788" class=""><a href="https://ithelp.ithome.com.tw/articles/10196528">小事之 CSS Reset 與 CSS normalize</a></p><p id="675b726d-9dab-4650-a36b-1f8406142a8f" class=""><strong>整合 Reset 流程</strong></p><p id="b81e0cd9-9a93-404c-830c-3635bf6d838a" class="">將normalize的程式碼儲存成_normalize.scss, 並在all.scss用@import &quot;_normalize.scss &quot;;引入檔案。</p><p id="06c7a669-e54c-477e-a84e-3a012b587e57" class=""><strong>import 總結</strong></p><ol id="6ff09bd2-2c38-4740-b6f5-6221a3993f0f" class="numbered-list" start="1"><li>如何寫出SCSS</li></ol><ol id="16d090e9-9e9a-490e-b855-5e502fbb6ebc" class="numbered-list" start="2"><li>設定常用的變數,像是文字大小、顏色…等</li></ol><ol id="bdbbfa2e-d53c-4d16-bfa3-fe0e236d487c" class="numbered-list" start="3"><li>@import .scss檔案,將.scss檔案依照功能分門別類。分成變數、CSS reset、主要樣式跟第三方插件等。</li></ol><blockquote id="65f022bb-1a57-4a53-9bc3-b07f650e01ac" class=""></blockquote><figure id="4dbc70b8-83e1-4433-95f9-7062b155628d" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image7.png"><img style="width:435px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image7.png"/></a></figure><p id="b32c80bf-3e74-48fe-a4fd-dbd57ef6c3b5" class=""><strong>為什麼你一定要學 Mixin？</strong></p><p id="2a6a04df-28cd-4831-8bc7-9bfe0e864a6c" class="">@mixin能幫你記住CSS技巧讓你不在因為回想原理而中斷思緒。</p><p id="24df046c-01f9-4adf-8ffe-df3b144273a5" class=""><strong>Mixin 輕鬆寫</strong></p><p id="a3b70fb4-5db7-4b92-8147-a4c961c878bd" class="">@mixin能幫你記住CSS技巧讓你不再因為回想原理而中斷思緒。</p><p id="5da35d70-437e-4b42-98b9-9a14d296640c" class="">@mixin 名稱{ ….css程式碼}</p><p id="303b78ac-2177-4388-95eb-ad87d573f482" class="">@include 名稱</p><p id="b1f68a5d-54d1-4e5d-8f70-3142fa51e5a0" class="">@mixin 名稱{ ….css程式碼}如同變數一樣,也是要寫在前面,這樣編譯下來才不會因為找不到mixin而出錯</p><figure id="d5912e4b-9907-4cad-9ec2-f1b2bd67d62e" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image8.png"><img style="width:463px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image8.png"/></a></figure><p id="547069d3-6840-4a19-9e8c-38738ff1b57b" class=""><strong>掌握 Mixin 的各種好處，你不能不知道！</strong></p><p id="9400ba3a-19f5-49a3-85ac-7254053a5350" class="">可將常用的CSS技巧彙整成一隻_mixin.scss檔案,並可在下個專案繼續使用它。</p><p id="12338275-ff22-4bc3-bd86-58891b9eb965" class=""><strong>Mixin + import 組合技</strong></p><p id="59bd32ee-af1c-4ea9-8a67-165c2c5337fb" class="">常用的CSS技巧彙整成一隻_mixin.scss檔案, 並在all.scss用@import &quot;_mixin.scss &quot;;引入檔案。也是要注意引入檔案的順序。</p><p id="3bfff76c-d336-4230-b8b9-f2a147f4fcbf" class=""><strong>搭配參數，讓 Mixin 更加靈活！</strong></p><p id="d733f31e-5952-4d05-a4e0-483ed395d790" class="">若是某個CSS樣式經常使用到但顏色或是文字大小不同,可搭配參數及mixin去產生CSS樣式。ex: 下圖是產生2個背景顏色不同的圓形。</p><figure id="cee7e242-c83b-4e3e-b741-874128f3b67e" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image9.png"><img style="width:472px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image9.png"/></a></figure><p id="06505aa8-5135-4e3c-8143-52dc7a8ac333" class=""><strong>掌握 Mixin 後，寫 RWD 再也不是痛苦事</strong></p><p id="09b00ff9-9a72-44d4-a8da-4c66e6755e0b" class="">可利用@mixin去製作響應式斷點,好處是可以一併處理響應式的樣式,而不需要另外重複寫Media Queries的語法。ex: ipad寫一次@media(max-width:768px){...}及手機@media(max-width:576px){...}也寫一次</p><p id="0a9aa1a3-eb99-4422-89bf-2947d81aa08e" class=""><strong>核心語法 @Mixin + content</strong></p><p id="75c76b6c-7c98-4b1d-baf6-88c49152b38e" class="">可利用@mixin去製作響應式斷點</p><p id="4e361549-373e-4973-bef8-457d8d9ae4fc" class="">利用@include 名稱(){…}去使用mixin</p><p id="d4c749bb-316d-49a1-84d1-031fe7b467e1" class="">@content的功用是把@include 名稱(){程式碼},程式碼傳到mixin內,保有彈性且可在@mixin 內寫上其他樣式設定。</p><figure id="9c99afdd-91d1-413a-9d67-62409ca6a841" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image10.png"><img style="width:493px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image10.png"/></a></figure><figure id="43165053-e3da-4fc7-ad3f-f5a5a2642131" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image11.png"><img style="width:570px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image11.png"/></a></figure><p id="aa204046-01c5-4ae5-a8aa-95b74c37574e" class=""><strong>編譯後</strong></p><p id="2234fb4f-0fb0-4cda-b10b-e96e6da45979" class=""><strong>Sass 響應式網頁心得總結</strong></p><p id="3e78dd29-b1f7-40ee-a76f-caf89c544a18" class="">引入.scss檔案要特別注意Sass的編譯是從上到下。剛開始可以先將常用的CSS樣式彙整成一個_mixin.scss。等到比較熟悉之後,再將CSS樣式根據功能拆成各隻的.scss。</p><p id="b5e24b28-f0c5-462d-91a0-4d191a072ae1" class="">在all.scss去註解各個.scss檔案的用途。</p><p id="e5d5ebd4-b84d-4b34-853d-829fdcd4383c" class=""><a href="https://medium.com/@zehung860486/css-notes-css%E6%A8%A1%E7%B5%84%E5%8C%96-3bb03e72523e"><strong>[CSS Notes] - 談談CSS模組化</strong></a></p><p id="8318d6bc-314b-4463-95b9-f682eec876a2" class=""><strong>Smacss - 最好入門的設計模式介紹</strong></p><p id="fc7b9935-b5f8-447d-aa7b-1ba18370d4f8" class=""><strong>Smacss - 教您用 Base 打好地基(上)</strong></p><p id="513f8559-cbe5-4401-8bcc-a49610a378a3" class="">Base:網頁的基本樣式,像是設置標題大小，默認鏈接樣式，默認字體樣式和主體背景。以元素、子孫選擇器、子選擇器或是虛擬類別來設定樣式而不用class或是ID選擇器,切記在Base中不要用!important。若是網頁中有90%的某個CSS樣式是相同的,就可以做全域設定,而剩下的10%可以用class選擇器或是ID選擇器去覆蓋過去。(CSS權重的概念)</p><p id="3a9bf85c-8c2e-42d5-927f-14bba18dd907" class=""><strong>Smacss - 教您用 Base 打好地基 (中)</strong></p><p id="049e9f2f-300e-4f54-9973-20f950b43605" class="">CSS reset跟Base可分別獨立出一個.scss,好處是CSS reset可在下個專案繼續沿用,若是下個專案中Base的全域設定有更動再去更改即可</p><p id="af64a08a-9f5d-479f-a7be-966991206dfd" class=""><strong>Smacss - 教您用 Base 打好地基 (下)</strong></p><p id="17036c62-ee14-43c6-b2de-d0dbb67fe85d" class="">可參考Pure.css中的Base,它包含了CSS reset及Base全域設定</p><p id="32679ceb-2d83-4ddc-a8ec-8ab1d30fe735" class=""><strong>Smacss - Layout 佈局管理 (上)</strong></p><p id="dfd6cb23-1435-4537-baf0-1c3e9dc241f2" class="">Layout是指每個網頁上會出現的內容,通常會包含表頭、表尾。</p><p id="778e7a18-0e5c-4c85-93ee-24f220342faa" class=""><strong>Smacss - Layout 佈局管理 (下)</strong></p><p id="35a754bf-f6f9-432b-bc6f-17b0345bdb98" class="">若是常出現的內容也可以加入Layout的設定,像是電商上的書籍列表、DVD列表…等,如果它們的CSS樣式都一樣的話,即可用.l-list(l:表示layout)去設定樣式,就不需要用.bookList跟dvdList(用語意化的class命名)去重覆寫相同的CSS樣式。</p><p id="c7c666c9-c3b6-4638-8907-d30d5b6f704b" class=""><strong>為何 CSS/Sass 需要模組化？</strong></p><p id="a1425c99-e3de-413b-ad72-5582b8f4baa7" class="">讓CSS易維護及減少CSS重覆的使用</p><p id="4f53d4ae-bfd9-4811-a570-06bf6918b8f5" class=""><strong>Smacss - 模組化核心語法</strong></p><p id="f16c9e15-20a0-4316-a042-b94cfbccf36e" class="">可參考Bootstrap跟Pure.css的設計概念。以Bootstrap的btn為例, .btn為按鈕架構樣式的設定而.btn-primary是顏色的設定及.btn-lg跟.btn-sm是大小的設定,用子模組去擴充的方式去設定按鈕的樣式。</p><p id="ecac881f-495c-48ac-b887-aea8b361a899" class=""><strong>Smacss - 元件觀念講解</strong></p><p id="d265b914-0e01-418b-8a28-9e0b55270ee5" class="">軟體工程師有很多術語像是元件、組件或是模組化其實都是指用子模組去擴充的方式去設定元件的樣式。</p><p id="43e4de6a-8ffb-49e1-9a00-7e63e4a4a41c" class=""><strong>Smacss - 載入按鈕模組流程</strong></p><p id="4bdfe7ac-0fbc-4a90-add0-c9b1d5ca859e" class="">以載入Pure.css的Buttons為例。</p><p id="672ada0b-9167-4631-adc0-5c0cf51b10e1" class="">新增Modules資料夾,到Customize中下載Buttons並把檔案類型變更為.scss檔名為_buttons.scss及儲存到Modules資料夾,然後在all.scss引入_buttons.scss。</p><p id="239e8067-e726-4004-ac6d-34cc54cf069c" class=""><strong>Smacss - HTML 標籤優化</strong></p><p id="ee5a786a-3cf7-413c-955b-67e6f29eb4a1" class="">通常習慣會在class選擇器後+類別選擇器去做樣式設定,但在Smacss是建議各別新增class選擇器以避免未來新增或是修改HTML標籤而連帶地去影響CSS設定。像是h2改成h3的情況下,.l-grid h2就要變為.l-grid h3。</p><figure id="43ea840b-6643-4d09-a373-5866e2574bf4" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image12.png"><img style="width:700px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image12.png"/></a></figure><p id="d2da0873-2459-4dca-9549-b5168dd13d52" class=""><strong>OOCSS - 讓結構更加乾淨</strong></p><ol id="966b520d-907f-4f21-842d-62ec6126e5ac" class="numbered-list" start="1"><li>結構與樣式分離</li></ol><ol id="1838ba58-9247-44f1-8728-d3262ca9db31" class="numbered-list" start="2"><li>容器與內容分離</li></ol><p id="c98c540d-63f4-404f-8315-32dcacb6aaf6" class=""><strong>OOCSS - 容器與內容分離</strong></p><p id="4a5b0a60-f62d-4fc1-817f-391f252a0e15" class="">容器(網頁架構)單純去寫網頁的布局,就不會去寫.header a{…}去設定header裡面的連結樣式。</p><p id="ca75b9b4-9191-4310-bae5-42288b6d1bac" class="">內容各別以獨立的class選擇器去設定內容樣式,具有彈性。像.list-group也可以用於.col-md-9內</p><figure id="bf48b26c-37dc-4566-8d28-36e4e7d5889b" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image13.png"><img style="width:700px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image13.png"/></a></figure><p id="20a7708b-406b-44c0-8dbf-a6c69586cca4" class=""><strong>OOCSS - 容器與內容分離 - 以格線系統設計為例</strong></p><p id="72eae94a-5f9b-4242-8b98-54cfe997b26c" class="">可減少容器間的奇怪的寬度設定及減少CSS行數。像是.header{ width:771px}; .menu{ width: 223px}</p><p id="caaa6034-2b87-424f-a73e-77786bb57d43" class="">好處1: 容器可用同一個格線系統框架</p><p id="b5bfd353-7687-4051-b5d3-87c5b22c2fe9" class="">好處2: 減少客製化的CSS</p><p id="dab7f9e0-072a-4428-b6c1-b1cb17bff55b" class="">好處3: 達到真正的容器與內容分離</p><p id="14bcefc9-e584-4739-98f4-c22fd3810e6e" class="">以960 Grid System為例,將960px分成12欄</p><p id="9d2d3cb1-e716-4c97-9991-f533953d45e0" class="">.container_12 .grid_1 {</p><p id="3d3f6e9f-f6ea-41c7-bafb-6adcc08a64b6" class="">width: 60px;</p><p id="6355fd05-48c3-4e92-aac3-27782ac3dc31" class="">}</p><p id="d6734c07-c57d-4ee3-bb4e-b4a0942bd59b" class="">.grid_1{ //所有的.grid_xx都有的設定</p><p id="fd5b19d4-2319-4b3a-ba2c-cb41e6ae1b17" class="">display: inline;</p><p id="56c71160-7a77-41e1-88f3-8b2d11388d9a" class="">float: left;</p><p id="8189cd3f-d8ad-4bac-af4c-ec9a7b8e0bb1" class="">margin-left: 10px;</p><p id="2f94d72e-83e1-4737-b593-26d623fd6771" class="">margin-right: 10px;</p><p id="82afd670-b34a-46e4-8f6d-2e6d41479b6a" class="">}</p><p id="efb97685-6e2b-49ca-b21d-4a3331bf190c" class=""><strong>OOCSS - 樣式與結構分離</strong></p><p id="6b641071-e067-4ad5-be33-21ea3b0f3d24" class="">把結構、樣式跟工具類(像是清除浮動、文字排列、浮動效果)這些CSS語法分開寫。</p><p id="a6382e06-ef24-4881-bb98-da4d38833194" class="">以Bootstrap為例 .btn為預設樣式的設定而.btn-primary是顏色的設定及.btn-lg跟.btn-sm是大小的設定</p><p id="831fc82c-229b-4b33-b4cd-8a42617b3f2d" class=""><a href="https://codepen.io/staceyhuang/pen/XWjPOmP">OOCSS - 樣式與結構分離</a></p><p id="22faaa04-6c86-41c0-accb-7c1604aa0675" class=""><strong>命名寫得好，維護沒煩惱</strong></p><p id="e4fd0330-9057-4017-993a-5ad88b5ee153" class="">駝峰式大小寫（Camel-Case）</p><ul id="542cae76-44b4-481f-a721-95840a393143" class="bulleted-list"><li>小駝峰式命名法（lower camel case）：第一個單字以小寫字母開始；第二個單字的首字母大寫，例如：firstName、lastName。CSS常用此命名法。</li></ul><ul id="d489a3ea-4e64-40b0-91b9-35583340e8fd" class="bulleted-list"><li>大駝峰式命名法（upper camel case）：每一個單字的首字母都採用大寫字母，例如：FirstName、LastName、CamelCase，也被稱為Pascal命名法。在其他程式語言為了產生實例或是類別才會使用此命名法。</li></ul><p id="aab8cbd3-9ef2-416b-970c-2e8b57155947" class="">.bookList-img 表示.bookList(最外圍)內的img</p><p id="c9cb40e7-22c0-4469-9181-44aae74c8b7c" class=""><strong>究竟要用 - 還是 _ 來命名？</strong></p><p id="f06b0d15-410e-4188-8ba8-59c935c9950a" class="">.bookList-img 或是 .bookList_img哪個?</p><p id="74195715-6ea6-422b-bf52-bae056f80ac7" class="">都可以,但要一致,不要混用。依照開發者喜好或是公司規範來決定使用哪個。</p><p id="b7dac725-1d8f-41bd-aadc-b202b72ae566" class=""><strong>拋棄語意命名</strong></p><p id="2172536e-492a-4d4f-ba5d-d11eb024ce7a" class="">拋棄語意命名方式,改以工具、功能性質來命名</p><p id="dde57f42-8889-442d-96e8-5cf82a9ed1dd" class="">架構: 拋棄直白式命名方式,改以工具性質來命名。ex: .bookList{} 及.bookList-title{}跟.bookList-img{},改成.list{}及.list-title{}跟.list-img{}, 就算用在其他區塊如DVD或是其他產品列表也不會因為Class名稱而感到突兀</p><p id="d93cebbc-d159-4c24-a8fa-17d844ca2da5" class="">顏色:不要以顏色來命名,萬一未來更改顏色時,導致名字跟樣式不同。ex: .blue{ color: blue} -&gt; .blue{ color: red}; 依照主色或是功能來命名ex: .text-primary{} 或是 .textColor{}</p><p id="339fb21f-1f56-434c-9daa-e5a7497c932d" class="">布局:導入格線系統(ex:.col-3 或是.container)並保留.header及footer</p><p id="6e892902-4549-4a2a-b78e-87021d99cb0e" class=""><strong>BEM - 初試啼聲</strong></p><p id="d6b9b3fb-8a02-4b5d-a960-606b5023b160" class=""><a href="https://chupainotebook.blogspot.com/2019/05/bemcss.html">BEM，CSS 設計模式</a></p><p id="8e625f43-c154-4ad3-8d34-862037745c38" class="">下面是OOCSS的範例,將結構與樣式分離的程式碼。命名上會不清楚哪個樣式還是產生元素</p><figure id="b41b953d-9afe-4762-b0a5-87dea72ce5e7" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image14.png"><img style="width:440px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image14.png"/></a></figure><p id="8505b465-b469-41c6-a96b-7900db696e8c" class="">B: Block區塊 menu</p><p id="b5e386b6-50b9-4105-b376-29e250fa354c" class="">E: Element (元素)­­__ menu__item是menu的元素</p><p id="6fa17ef9-613c-4053-aace-b5a20631c164" class="">M: Modifier (修飾符)-- meun__item--active是表示menu__item的其中一種狀態。若是看到menu--active則是menu的狀態而不是menu__item</p><figure id="dc9c290a-0ac1-4e5a-8fa0-cee0e968850c" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image15.png"><img style="width:509px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image15.png"/></a></figure><p id="968bc6fb-8354-488d-a86f-8e12f1adf7e9" class=""><strong>BEM - 搭配 Sass 組合技</strong></p><p id="db86bffa-b395-448b-adba-8ed234281c0f" class="">.card__body{}</p><p id="002285fb-9449-42e9-a06c-503e5ba3de9d" class="">.card__body__title{}</p><p id="cd37322b-291c-4798-a5dd-d4b169990b32" class="">.card__body__title--active{}</p><p id="65d06f23-4af7-40bd-be8a-257f2cb21163" class="">使用&amp;連接字串,可簡化成以下寫法</p><p id="68a64326-f8ac-44e1-bf64-04fbff0db9ff" class=""><a href="https://codepen.io/staceyhuang/pen/yLaRzZx">BEM - 搭配 Sass 組合技</a></p><figure id="4f2518ca-0022-400d-804b-638f386b83ab" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image16.png"><img style="width:366px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image16.png"/></a></figure><figure id="6e38b49a-f3ec-4a81-bfa3-de95302a95ad" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image17.png"><img style="width:349px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image17.png"/></a></figure><p id="1cee1e35-f7d4-4d63-bb34-b65f127dc2d7" class=""><strong>總結 - 寫出讓人驚嘆的語意命名</strong></p><p id="7ef668ec-3f87-494b-8fd8-80ea7f093577" class="">以工具或是功能性來命名及用BEM跟OOCSS與SMACSS設計模式,可以清楚看出class 之間彼此的相依性及class的功能,也達到容器與內容分離。就算過了幾個月,再回顧也能理解class 之間彼此的相依性。</p><p id="1cf9a5dc-ff6e-4bff-af0f-993a9f16eedb" class=""><a href="https://codepen.io/staceyhuang/pen/dypgZXO">總結</a></p><p id="888a89be-60b7-42fe-9cf3-ed1a14f66e18" class=""><strong>開發網站前，你 guidelines 規劃好了嗎？</strong></p><p id="56d28f58-4905-4b42-ab2d-46fd4b73671c" class=""><a href="https://quip.com/1zuNARsbxGe0">甜點電商 CSS guideline</a></p><p id="2f154002-d978-437d-b45a-44c6a9626022" class=""><a href="https://github.com/doggy8088/CSS-Guidelines">CSS 筆記、建議與指導方針總整理</a></p><p id="1861099b-932f-4dac-8772-404452927da0" class=""><strong>用 7+1 Sass 設計模式，架構再大也不怕！</strong></p><p id="31716d46-4af5-45f9-a8c0-46f66674282d" class="">如果是簡單的專案,可以寫成一個個的.scss檔,不需要依照功能來分資料夾。</p><p id="ee16baac-bfeb-4b92-9305-e2b12206d3d3" class="">如果是中大型的專案,可參考以下的7+1 Sass 設計模式</p><p id="58e1f346-3cc0-484d-896c-ba44bb3c2eeb" class="">sass/</p><p id="c749d6b7-89b6-4cf0-a489-d95c39f6ba00" class="">|</p><p id="f312d72c-1d17-4c39-b175-52f656d8b669" class="">|– base/ (放初始化的東西)(資料夾)</p><p id="260b3698-006a-4e63-9db5-5a2a9d3f6fec" class="">| |– _reset.scss # Reset/normalize (CSS Reset)</p><p id="4b5e73d6-0b3b-4440-bb87-1e47bfad5316" class="">| |– _typography.scss # Typography rules (文字的規則)</p><p id="d8c3ea5d-3982-4a9c-a0cc-82cd3880f888" class="">| ... # Etc…</p><p id="a103dbd8-781e-4e1f-99c0-7a33efc50fbf" class="">|</p><p id="4380adca-e0bd-4f06-b04b-7018117aea41" class="">|– components/(元件) (資料夾)</p><p id="66c8bc66-9812-462e-b91d-2724e8d7a10d" class="">| |– _buttons.scss # Buttons</p><p id="dca6a9c5-d909-4dc6-802a-d2898fcbd640" class="">| |– _carousel.scss # Carousel</p><p id="49da0312-b69c-4d63-80e6-565122cbaa55" class="">| |– _cover.scss # Cover</p><p id="d6d2eb94-6c46-4fb4-9374-ed0f61ac75f6" class="">| |– _dropdown.scss # Dropdown</p><p id="7b105420-81fc-4274-836d-d086eeea2313" class="">| ... # Etc…</p><p id="ff0d9f57-d601-44bf-9fd8-386c56fee043" class="">|</p><p id="20edd452-ea9b-486a-9870-ea5dbff526b0" class="">|– layout/(網站布局) (資料夾)</p><p id="9bc4f579-3af9-4b19-a729-dca6621b2b68" class="">| |– _navigation.scss # Navigation</p><p id="b33c792a-f054-4399-b435-eae5ae228528" class="">| |– _grid.scss # Grid system</p><p id="53840015-9b41-4f52-95cb-5ce355378f9d" class="">| |– _header.scss # Header</p><p id="22b58982-cbd5-4b21-8d8a-90640749da41" class="">| |– _footer.scss # Footer</p><p id="ad37fcc7-875b-4243-892e-410456dd9a86" class="">| |– _sidebar.scss # Sidebar</p><p id="0b5b6ce6-b127-4e98-9ba9-d84fba1fc9ec" class="">| |– _forms.scss # Forms</p><p id="c9148f12-37e2-4e0e-b60c-14adc53b6eb7" class="">| ... # Etc…</p><p id="a5e52ae1-d21b-4ee7-a5b0-1a83e62e7fc7" class="">|</p><p id="d7143f94-c389-4a7f-965b-77b395e6a71c" class="">|– pages/(只有某頁才會用到的複雜樣式) (資料夾)</p><p id="ae3e6913-3f08-42e1-9c3f-46d345e27302" class="">| |– _home.scss # Home specific styles</p><p id="d08d3a6e-e358-402b-a3c5-440b012a3a8f" class="">| |– _contact.scss # Contact specific styles</p><p id="2d762697-ad65-4ea7-b311-f5d39ecc81e4" class="">| ... # Etc…</p><p id="fdaf6fa0-4132-4b5b-9351-514d1b851983" class="">|</p><p id="4240d2a4-1b25-427d-bf5c-84b870221bf9" class="">|– themes/(網站上如果有多個主題色) (資料夾)</p><p id="dcb9b7c6-98ac-4ad1-b19f-e917ef30d229" class="">| |– _theme.scss # Default theme</p><p id="fd4ee272-0c46-4b4e-a3db-f9eb99891f48" class="">| |– _admin.scss # Admin theme</p><p id="f36a34f5-e695-40c7-9ba6-baa1647ba1b9" class="">| ... # Etc…</p><p id="9927b5ec-c711-4489-9227-1c55d9a4f4fb" class="">|</p><p id="3d0d8962-85e6-44b7-bbc0-0b1fe1cedbc3" class="">|– utils/(工具型) (資料夾)</p><p id="a4bf35d9-c66e-4fc4-a5c2-46b44623304e" class="">| |– _variables.scss # Sass Variables</p><p id="b313ae34-3f88-41ac-a2a5-b5675b32366e" class="">| |– _functions.scss # Sass Functions</p><p id="383cad18-344d-4ecc-95b1-d4dd9d4591b5" class="">| |– _mixins.scss # Sass Mixins</p><p id="8f2d9160-0ef2-4024-90d9-fb601b98d2d4" class="">| |– _helpers.scss # Class &amp; placeholders helpers (工具型的CSS設定 ex: .text-left &amp;.clearfix)</p><p id="1dee13ef-bd30-4d4d-b303-0200b0047d88" class="">|</p><p id="6f8509c2-ca58-4a4b-8e54-13a674d37436" class="">|– vendors/(插件) (資料夾)</p><p id="a2343b3e-a4d1-49be-a845-1b3ec929e384" class="">| |– _bootstrap.scss # Bootstrap</p><p id="11473a70-2e45-423b-b6a5-d0301c0db353" class="">| |– _jquery-ui.scss # jQuery UI</p><p id="6febbfea-ed0f-4e3c-8c72-c0abb09501ad" class="">| ... # Etc…</p><p id="f2d01dd2-3789-46d9-a254-7fed597c0ed3" class="">|</p><p id="c3000c54-a33b-4670-b748-a6a716a75ed5" class="">|</p><p id="7a24aa17-93b3-4ccf-b560-366dfd4d4bd9" class="">`– main.scss # Main Sass file</p><p id="047aafd0-0be9-49b6-836c-e6c09e97554a" class=""><a href="https://gist.github.com/rveitch/84cea9650092119527bc">sass-7-1-pattern.scss</a></p><p id="2791a35a-8704-4254-8b75-069973ab362d" class=""><strong>依照背景不同，所開發出來的介面思維也會各有特點</strong></p><p id="3981f817-9d10-4fdc-9151-fc61ea2ccba4" class="">老師建議:手寫-&gt;自己做框架(用Sass)-&gt;Bootstrap</p><p id="8cf0fca2-dd3b-4979-92eb-5576101e5c87" class="">了解各CSS框架的底層後,去下載各CSS框架所需要的元件或是工具,去擴展自己的框架;或是覺得CSS框架比較適合自己,也可以去加入自設的元件或是工具。</p><p id="a56f9919-794c-423f-8b6c-34d393fa3986" class=""><strong>CSS 範圍性常見錯誤</strong></p><p id="2cc01017-b95b-4bec-a03a-d13cb190d606" class="">在很多地方下相同的CSS樣式設定。ex .header p{ font-size: 16px } .content p{ font-size: 16px }</p><p id="9c69d963-0741-4cdd-bba2-ff73b6e76899" class="">可以改在最外圍用.wrap或是.container包圍,class具有範圍性或是在body,html設定。ex .wrap{ font-size: 16px } body,html { font-size: 16px }。</p><p id="436f491c-03a6-428f-8b0c-32c5be427eb5" class="">若是有其他文字大小的設定,再用class選擇器覆蓋過去</p><p id="49b902a0-9797-484a-b5d2-6b21b9069177" class=""><strong>請勿將高度寫死</strong></p><p id="c43b1e41-3a44-44ed-ad2a-b3f1c1fbce81" class="">使用padding或是margin來做適當的留白,在響應式下,會自適應調整伸縮。</p><p id="2d228d52-6f59-4391-afde-fab94912ff00" class=""><strong>請勿使用 ID 綁定網頁樣式</strong></p><p id="a00be703-3130-4cc0-92ce-84e6a086a888" class="">id通常是做為錨點,用來切換位置。一個網頁上只能有1個id,無法像class重覆使用。此外,id的權重分數是100分而class的權重分數是10分,使用id選擇器很難去覆蓋</p><p id="9afd1e6a-585e-4a27-87d1-f058dc07017f" class=""><strong>解決 JS 與 CSS 功能相互干擾</strong></p><p id="23c5c8c3-6dd6-43fb-9357-b7d0d72fd6c7" class="">使用js前缀詞,以避免class名稱改變時,使得以class名稱所綁定的JS功能失效。在Vue.js、Angular等前端框架是不會這樣寫,但在jQuery及JS原生寫法沒有用到任何框架,必須注意到這個細節。</p><p id="fecdca5c-2a09-405f-b300-8f5a9f00680f" class="">&lt;input type=&quot;button&quot; class=&quot;btn btn-primary js-hello&quot; value=&quot;hello&quot;&gt;</p><p id="07d6a02e-3418-44ca-b0a7-24429e29ee5d" class="">&lt;script&gt;</p><p id="e6bc3524-b9cd-48ca-8141-1560de92ec2c" class="">document.querySelector(&#x27;.js-hello&#x27;).addEventListener(&#x27;click&#x27;, function(){</p><p id="de313b71-6937-4be8-8924-d83fbbff40d2" class="">alert(&#x27;Hello&#x27;)</p><p id="0b1bae16-9cd6-42bc-98a5-bd2f80d5e22c" class="">})</p><p id="2f6dabc4-6677-42ed-9aac-88b573c714bd" class="">&lt;/script&gt;</p><p id="968e239b-7686-440e-9412-d7f1b3389387" class=""><strong>變數篇 - 整合相同設定好幫手</strong></p><ul id="e220e7e5-781f-4e63-81fa-45c2845a134a" class="bulleted-list"><li>可將常需要設定的CSS放在變數來管理</li></ul><ul id="adb274a7-58ef-4838-a510-cc3a8ad7279b" class="bulleted-list"><li>變數是用美元符號開頭$</li></ul><ul id="a1aed209-83f6-44b1-96ec-b3ea72620950" class="bulleted-list"><li>SCSS有支援加減乘除,所以可在變數使用</li></ul><p id="45ac8337-05d4-4df5-a699-caaaf181c94b" class="">$變數名稱: 值;</p><p id="b55ae2f4-e30f-4039-8ca6-f5c9daf582ce" class="">ex:</p><p id="e70cc5d5-5ba3-4936-a6a7-12e1db3f65cd" class="">$font-l: $font-m * 1.2;</p><p id="7cdb72e4-46e0-4f06-b32a-aee3da31ef98" class="">$font-m: 16px;</p><p id="e083490d-2de7-4a7f-b93e-f3995551f7f4" class="">$font-s: $font-m * 0.8;</p><p id="81ccca5a-7ace-44de-b9d4-301aede9c007" class=""><strong>拆檔篇 - @import: 每隻 Sass 檔專心做一件事情</strong></p><p id="9947acc9-2929-4839-b620-01befd44f97d" class="">使用@import可將SCSS彙整成一隻檔案</p><p id="c38b8be8-8f49-4160-9d5b-def21a8acbce" class="">_檔案名稱.scss _下底線表示檔案是要拿來被合併的,就不會編譯出css</p><p id="6136cbc2-0a05-463e-97a4-f902c0e1e168" class="">SCSS/SASS 在編譯過程中,是從上到下來執行,所以變數要寫在最前面,不然會出錯。</p><figure id="100030a5-bf78-4854-8bcc-bb68beeb500e" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image18.png"><img style="width:291px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image18.png"/></a></figure><p id="612143f5-1dfd-420d-a5a7-f0210c06fff3" class=""><strong>工具篇 - @mixin: 將常用語法化簡為自己的知識庫</strong></p><p id="85aed23a-9ebd-4473-958c-3a1662374c1a" class="">@Mixin能幫你記住CSS技巧讓你不在因為回想原理而中斷思緒。</p><p id="eb089073-a6dc-4c7f-89a5-032b4e9f63dc" class="">@mixin 名稱{ ….css程式碼}</p><p id="8e235740-18e2-4976-8a3b-23c141a0072f" class="">@include 名稱</p><figure id="507e67a4-12b3-458b-8a10-7ad605fd4391" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image8.png"><img style="width:463px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image8.png"/></a></figure><p id="a7270c2e-c706-416d-be8a-fa08ae8f83c4" class="">mixin中也可以使用變數</p><figure id="3c1bb55f-ed18-4ce2-9cc1-687f0a98e80c" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image19.png"><img style="width:451px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image19.png"/></a></figure><p id="bb15f2ed-da40-412a-bcf8-b65ac97be31b" class=""><strong>載具篇 - @mixin+@content 設計響應式設計超方便</strong></p><p id="4f2af883-67f0-4273-895b-fcf05250a1a4" class="">可利用@mixin去製作響應式斷點</p><p id="ec56d5ed-b6d6-4e96-af99-f8920936352a" class="">@content 把所寫的程式碼傳到mixin內,能夠在mixin內繼續撰寫其他的程式碼</p><p id="5627c4b1-311f-41be-9a53-e0748d185d12" class="">利用@include 名稱(){…}去使用mixin</p><figure id="f2bd9fd6-1243-4614-9bcf-b5b5749c0fd1" class="image"><a href="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image20.png"><img style="width:419px" src="Sass%E7%AD%86%E8%A8%98%20a16a42fca4604588a5b1a33302684458/image20.png"/></a></figure><p id="7a789e94-65ae-4e62-84ff-23e6b0fe684d" class=""><strong>結構篇 - 如何循序漸進優化網頁架構</strong></p><p id="425a58c0-6839-4996-bc3f-002c4e048ba1" class="">@import &quot;mixin&quot;; // 所有全域變數與Mixin</p><p id="a3fd7825-d8ff-4aa8-a415-2640af9a7fc9" class="">@import &quot;reset&quot;; // reset.css</p><p id="e1955c61-2b3d-4aa7-a01a-6ae3d5515e02" class="">@import &quot;layout&quot;; // 共同框架,第一層</p><p id="39c31692-f4fe-45ef-b099-efaabc7693a9" class="">@import &quot;module&quot;; // button, form, table</p><p id="55398599-9c57-4b26-9d84-9b59ab8fb33f" class="">@import &quot;pages/index、page1&quot;;</p><p id="25336acf-0317-4208-a83b-1fea31f6c5e2" class="">可以把mixin內的東西延用到下一次專案</p></div></article></body></html>
